@@ -48,10 +48,22 @@
     margin-bottom: 20px;;
 }
 
-a:hover{
-    background-image: url(http://img.mynet.com/ha2/tayyip.jpg);
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+.candidate-info a{
+    cursor: pointer;
+}
+
+.seal{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.vote-section:hover .seal{
+    display: block;
+}
+
+.contract-adresses{
+
+    margin: 50px auto;
+    text-align: center;
 }
