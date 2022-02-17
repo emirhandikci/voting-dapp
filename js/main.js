@@ -34,7 +34,7 @@ var myContract;
                 getCandidate(1);
                 getCandidate(2);
                 getCandidate(3);
-                getCandidate(6);
+                getCandidate(4);
 
                 myContract.events.eventVote({
                     fromBlock: 0
@@ -60,7 +60,7 @@ var myContract;
         async function getCandidate(cad) {
             await myContract.methods.candidates(cad).call(function (err, result) {
                 if (!err) {
-                    //console.log("result:", result);
+                    console.log("result:", result);
                     document.getElementById("cad" + cad).innerHTML = result[1];
                     document.getElementById("cad" + cad + 'count').innerHTML = result[2];
                 }

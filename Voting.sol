@@ -17,8 +17,11 @@ contract Election {
         );
     
      constructor()  {
-         addCandidate("Besiktas");
-         addCandidate("Fenerbahce");
+         addCandidate("Donald J. Trump");
+         addCandidate("Bernie Sanders");
+         addCandidate("Joseph R. Biden Jr.");
+         addCandidate("Tulsi Gabbard");
+         addCandidate("Emirhan Dikci");
     }
     
     
