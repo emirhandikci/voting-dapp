@@ -27,14 +27,18 @@ var myContract;
             }
         }
 
-        $(document).ready(async function () {
-            var IsMetamask = await CheckMetamaskConnection();
-            if (IsMetamask) {
+        $(document).ready(async function () { 
+            var IsMetamask = await CheckMetamaskConnection(); // metamaske bağlantı var mı yok mu onu çekiyor
+            if (IsMetamask) { // bağlantı var ise
                 myContract = new web3.eth.Contract(SmartContractABI, SmartContractAddress);
                 getCandidate(1);
                 getCandidate(2);
                 getCandidate(3);
                 getCandidate(4);
+                getCandidate(5);
+                getCandidate(6);
+                getCandidate(7);
+                getCandidate(8);
 
                 myContract.events.eventVote({
                     fromBlock: 0
@@ -56,28 +60,28 @@ var myContract;
                 });
             }
         });
-
-        async function getCandidate(cad) {
+ 
+        async function getCandidate(cad) {  // 
             await myContract.methods.candidates(cad).call(function (err, result) {
                 if (!err) {
                     console.log("result:", result);
                     document.getElementById("cad" + cad).innerHTML = result[1];
                     document.getElementById("cad" + cad + 'count').innerHTML = result[2];
                 }
-
-
             })
 
         }
 
-        async function Vote(cad) {
+        async function Vote(cad) { // Burada oy verirken, metamask cüzdanına bağlanıp kişinin uniq olan wallet adresini çeker, bu adres adına oylama işlemi yapar.
             var ben = await web3.eth.getAccounts()
+            console.log("JSON verileri :"+JSON.stringify(ben))
             await myContract.methods.vote(cad).send({from: ben[0]}, function (err, result) {
-                /*'0xCC9AC83832407A0C9dC00BfB651dFEe621c241B2'*//*web3.eth.getAccounts()*/ /*web3.eth.accounts[0] */
+                console.log("json result"+JSON.stringify(result)) // işlemlerin log kaydı ile ilgili blok burası
+                
                 if (!err) {
-                    
+                    console.log("json result"+JSON.stringify(result))
                 } else {
-                    
+                    console.log("json result"+JSON.stringify(result))
                 }
             })
         }
