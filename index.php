@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
-
+<?php
+try {
+  $db = new PDO("mysql:host=localhost;dbname=voting-dapp", "root", "");
+} catch ( PDOException $e ){
+  print $e->getMessage();
+}
+$president = $db->query("SELECT * FROM president", PDO::FETCH_ASSOC);
+?>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -35,72 +42,45 @@
         <div class="row">
 
             <div class="col-md-12 d-flex justify-content-center mt-5">
-
-                <div class="candidate border border-dark">
-                    <div class="row candidate-info">
-                        <img src="./assets/img/trump.jpg" alt="" class="img-thumbnail thumb-size">
-                        <h2 class="candidate-names">Donald J. Trump</h2>
-                        <a onclick="Vote(1)">
-                            <div class="vote-section border border-dark">
-                                <img src="./assets/img/seal.png" alt="" class="seal">
+            <?php
+					 if ( $president->rowCount() ){
+						foreach( $president as $row ){
+							echo "<div class='candidate border border-dark'>
+                            <div class='row candidate-info'>
+                                <img src='".$row["link"]."' alt='' class='img-thumbnail thumb-size'>
+                                <h2 class='candidate-names'>".$row["name"]."</h2>
+                                <a onclick='Vote(".$row["id"].")'><div class='vote-section border border-dark'>
+                                    <img src='./assets/img/seal.png' alt='' class='seal'>
+                                </div></a>
                             </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="candidate border border-dark ">
-                    <div class="row candidate-info">
-                        <img src="./assets/img/sanders.jpg" alt="" class="img-thumbnail thumb-size">
-                        <h2 class="candidate-names">Bernie Sanders</h2>
-                        <a onclick="Vote(2)">
-                            <div class="vote-section border border-dark">
-                                <img src="./assets/img/seal.png" alt="" class="seal">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="candidate border border-dark">
-                    <div class="row candidate-info">
-                        <img src="./assets/img/biden.jpg" alt="" class="img-thumbnail thumb-size">
-                        <h2 class="candidate-names">Joseph R. Biden Jr.</h2>
-                        <a onclick="Vote(3)">
-                            <div class="vote-section border border-dark">
-                                <img src="./assets/img/seal.png" alt="" class="seal">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="candidate border border-dark">
-                    <div class="row candidate-info">
-                        <img src="./assets/img/gabbard.jpg" alt="" class="img-thumbnail thumb-size">
-                        <h2 class="candidate-names">Tulsi Gabbard</h2>
-                        <a onclick="Vote(6)">
-                            <div class="vote-section border border-dark">
-                                <img src="./assets/img/seal.png" alt="" class="seal">
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                        </div>";
+						}
+				   }
+				   ?>
 
             </div>
             <div class="row col-md-6 chart-table  d-flex justify-content-center">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th id="cad1" scope="col">First</th>
-                            <th id="cad2" scope="col">Last</th>
-                            <th id="cad3" scope="col">Handle</th>
-                            <th id="cad4" scope="col">Four</th>
+                        <?php
+					 if ( $president->rowCount() ){
+						foreach( $president as $row ){
+							echo "<th id='".$row["id"]."' scope='col'>".$row["name"]."</th>"
+						}
+				   }
+				   ?>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td id="cad1count">0</td>
-                            <td id="cad2count">0</td>
-                            <td id="cad3count">0</td>
-                            <td id="cad4count">0</td>
+                            <?php
+					 if ( $president->rowCount() ){
+						foreach( $president as $row ){
+							echo "<td id='".$row["id"]."'count'>0</td>"
+						}
+				   }
+				   ?>
                         </tr>
 
                     </tbody>
